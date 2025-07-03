@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="birthday-card">
+      <h1>🎉 Happy Birthday, Kanxoo 🎂</h1>
+      <p class="message">
+        Wishing you all the happiness, joy, and love in the world. 💖<br />
+        You’re special to me, and today is all about you. I love youu 💖💖💖
+      </p>
+      <p class="from">— From Someone Who Cares 😊</p>
+
+      <button class="surprise-btn" onclick="showSurprise()">🎁 Open Your Surprise</button>
+    </div>
+  </div>
+
+  <!-- Hearts Animation -->
+  <div class="hearts">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+  </div>
+
+  <!-- Surprise Modal -->
+  <div id="surprise-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeSurprise()">&times;</span>
+      <h2>🌟 Surprise! 🌟</h2>
+      <p>You light up the world with your smile. Wishing you endless joy and success. 💕</p>
+      <img src="her.jpg" alt="Birthday Girl" />
+    </div>
+  </div>
+
+  <script>
+    function showSurprise() {
+      document.getElementById('surprise-modal').style.display = 'flex';
+    }
+    function closeSurprise() {
+      document.getElementById('surprise-modal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
