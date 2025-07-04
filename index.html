@@ -12,8 +12,10 @@
   </style>
 </head>
 <body>
+  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
 
+  <!-- Birthday Card -->
   <div class="container">
     <div class="birthday-card">
       <h1 class="shimmer">💖 Happy Birthday, Kanxoo 💖</h1>
@@ -58,18 +60,34 @@
       </p>
 
       <div class="gallery">
-     <img src="kanxoo1.jpg" alt="Kanxoo Photo 1" />
-<img src="kanxoo2.jpg" alt="Kanxoo Photo 2" />
-<img src="kanxoo3.jpg" alt="Kanxoo Photo 3" />
-
-
+        <img src="kanxoo1.jpg" alt="Kanxoo Photo 1" />
+        <img src="kanxoo2.jpg" alt="Kanxoo Photo 2" />
+        <img src="kanxoo3.jpg" alt="Kanxoo Photo 3" />
       </div>
     </div>
   </div>
 
-  <!-- Confetti & Fireworks -->
+  <!-- Audio Controls -->
+  <div class="audio-controls">
+    <button class="audio-btn" onclick="toggleAudio()">🔊  Music</button>
+    <audio id="bg-audio" src="birthday.mp3" loop></audio>
+  </div>
+
+  <!-- Confetti & JS -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
+    const audio = document.getElementById("bg-audio");
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
+    }
+
     function firework() {
       const end = Date.now() + 4000;
       (function frame() {
