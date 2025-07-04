@@ -1,4 +1,4 @@
-/* Reset & Base */
+/* Reset & base styles */
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +7,8 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right top, #ffdee9, #b5fffc);
+  background: linear-gradient(to bottom, #0d001a, #1a001a, #330033);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,6 +18,53 @@ body {
   position: relative;
 }
 
+/* Star field background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 2px 2px;
+  z-index: 0;
+  opacity: 0.1;
+}
+
+/* Shooting stars */
+.shooting-star {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(white, transparent);
+  opacity: 0.6;
+  animation: shoot 3s linear infinite;
+}
+
+.shooting-star:nth-child(2) {
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.shooting-star:nth-child(3) {
+  left: 80%;
+  animation-delay: 2s;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translate(0, 0) rotate(45deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(500px, 500px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Confetti Canvas */
 canvas#confetti-canvas {
   position: fixed;
   top: 0;
@@ -27,21 +75,26 @@ canvas#confetti-canvas {
   z-index: 1;
 }
 
+/* Container */
 .container {
   text-align: center;
   z-index: 2;
   padding: 2rem;
 }
 
+/* Card */
 .birthday-card {
-  background-color: #fff9fb;
+  background-color: rgba(255, 249, 251, 0.1);
+  backdrop-filter: blur(10px);
   padding: 2rem 3rem;
   border-radius: 30px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
   max-width: 600px;
   animation: fadeIn 1.2s ease-in;
+  color: white;
 }
 
+/* Shimmer + Typewriter */
 .shimmer {
   font-size: 2.6rem;
   background: linear-gradient(90deg, #ff69b4, #fff, #ff69b4);
@@ -54,11 +107,10 @@ canvas#confetti-canvas {
 
 .typewriter {
   display: inline-block;
-  border-right: 2px solid #ff69b4;
-  white-space: nowrap;
   overflow: hidden;
-  width: 0;
-  animation: typing 2.5s steps(30, end) forwards;
+  border-right: .15em solid pink;
+  white-space: nowrap;
+  animation: typing 3s steps(25, end), blink-caret 0.75s step-end infinite;
 }
 
 @keyframes shimmer {
@@ -71,19 +123,25 @@ canvas#confetti-canvas {
   to { width: 100%; }
 }
 
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: pink; }
+}
+
 .message {
   font-size: 1.3rem;
-  color: #444;
+  color: #eee;
   margin: 1.2rem 0;
   line-height: 1.6;
 }
 
 .from {
   font-style: italic;
-  color: #666;
+  color: #ccc;
   margin-bottom: 1.5rem;
 }
 
+/* Surprise Button */
 .surprise-btn {
   padding: 12px 24px;
   font-size: 1.1rem;
@@ -93,12 +151,150 @@ canvas#confetti-canvas {
   color: white;
   cursor: pointer;
   transition: 0.3s;
-  z-index: 3;
-  position: relative;
 }
 
 .surprise-btn:hover {
   background-color: #ff85c1;
+}
+
+/* Audio Button */
+.audio-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.audio-btn {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  animation: pulse 2s infinite;
+  font-size: 16px;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Floating Hearts */
+.heart-orbit {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  animation: spin 12s linear infinite;
+  z-index: 0;
+}
+
+.orbit-heart {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  animation: orbit-flutter 2s ease-in-out infinite;
+}
+
+.orbit-heart.delay1 {
+  transform: rotate(120deg) translateX(150px);
+}
+
+.orbit-heart.delay2 {
+  transform: rotate(240deg) translateX(150px);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes orbit-flutter {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  overflow-y: auto;
+  padding: 3rem 1rem 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  display: flex;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #220022, #330033);
+  padding: 2rem;
+  border-radius: 25px;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  animation: fadeIn 0.8s ease-in-out;
+  position: relative;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+  margin-top: 1rem;
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: #ff69b4;
+  cursor: pointer;
+}
+
+/* Letter */
+.love-note {
+  font-size: 1.15rem;
+  font-family: 'Georgia', cursive;
+  color: #fdd;
+  background: #3a003a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  line-height: 1.9;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 8px rgba(255, 192, 203, 0.3);
+}
+
+/* Gallery */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.gallery img {
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
 }
 
 /* Balloons */
@@ -128,145 +324,22 @@ canvas#confetti-canvas {
   100% { bottom: -100px; }
 }
 
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 99;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  overflow-y: auto;
-  padding: 3rem 1rem 2rem;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.modal-content {
-  background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-  padding: 2rem;
-  border-radius: 25px;
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-  animation: fadeIn 0.8s ease-in-out;
-  position: relative;
-  box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
-  margin-top: 1rem;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 1.5rem;
-  color: #ff69b4;
-  cursor: pointer;
-}
-
-.love-note {
-  font-size: 1.15rem;
-  font-family: 'Georgia', cursive;
-  color: #5a4444;
-  background: #fff8fb;
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: left;
-  line-height: 1.9;
-  margin-bottom: 2rem;
-  box-shadow: inset 0 0 8px rgba(255, 192, 203, 0.3);
-}
-
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.gallery img {
-  width: 220px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-}
-
-.gallery img:hover {
-  transform: scale(1.05);
-}
-
-/* Audio Controls */
-.audio-controls {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.audio-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 25px;
-  background-color: #ff69b4;
-  color: white;
-  cursor: pointer;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* Floating Hearts */
-#floating-hearts {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.heart {
-  position: absolute;
-  top: 100%;
-  font-size: 24px;
-  animation: floatUp linear forwards;
-}
-
-@keyframes floatUp {
-  0% { top: 100%; opacity: 1; }
-  100% { top: -10%; opacity: 0; }
-}
-
 /* Responsive */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .birthday-card {
     padding: 1.5rem;
   }
-  .modal-content {
-    padding: 1rem;
+  .shimmer {
+    font-size: 1.8rem;
+  }
+  .message {
+    font-size: 1.1rem;
+  }
+  .love-note {
+    font-size: 1rem;
   }
   .gallery img {
     width: 150px;
     height: 200px;
-  }
-  .shimmer {
-    font-size: 2rem;
   }
 }
