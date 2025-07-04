@@ -2,27 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday, Kanxoo!</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>#surprise-modal { display: none; }</style>
 </head>
 <body>
+  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
-  <div id="floating-hearts"></div>
 
+  <!-- Shooting Stars -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <!-- Floating Heart Orbit -->
+  <div class="heart-orbit">
+    <div class="orbit-heart">💖</div>
+    <div class="orbit-heart delay1">💗</div>
+    <div class="orbit-heart delay2">💘</div>
+  </div>
+
+  <!-- Birthday Card -->
   <div class="container">
     <div class="birthday-card">
-      <h1 class="shimmer">💖 Happy Birthday, <span class="typewriter">Kanxoo</span> 💖</h1>
+      <h1 class="shimmer typewriter">Happy Birthday, Kanxoo</h1>
       <p class="message">
         You deserve all the magic in the world today. ✨<br />
         Here’s a little gift made with love, just for you.
       </p>
       <p class="from">— From Someone Who Thinks You're Amazing 😊</p>
+      <div id="countdown" class="message"></div>
       <button class="surprise-btn" onclick="showSurprise()">🎁 Open Your Surprise</button>
     </div>
   </div>
 
+  <!-- Balloons -->
   <div class="balloons">
     <div class="balloon red"></div>
     <div class="balloon pink"></div>
@@ -31,20 +46,28 @@
   </div>
 
   <!-- Surprise Modal -->
-  <div class="modal" id="surpriseModal" style="display: none;">
+  <div id="surprise-modal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <span class="close-btn" onclick="closeSurprise()">&times;</span>
+      <h2>🌸 A Letter for You, Kanxoo 🌸</h2>
       <p class="love-note">
-        Happy Birthday Kanxoo! 🎉🎂<br /><br />
+        Dear Kanxoo,<br><br>
+        On this special day, I want to remind you how truly incredible you are.  
+        Your smile can light up the darkest day, and your presence is a gift to everyone around you.  
+        I may not say it often, but you inspire me more than you know. 💫<br><br>
+
         <em>
           "तिमी बिना जिन्दगी अधुरो जस्तो लाग्छ,<br>
           तिमी हुँदा सबै कुरा पूरा लाग्छ।"
-        </em><br /><br />
-        You are the reason behind so many of my smiles, and I’m lucky to know someone as wonderful as you.<br />
-        May your birthday be filled with laughter, love, and magical moments you’ll never forget. 🌟<br /><br />
-        With admiration,<br />
+        </em><br><br>
+
+        You are the reason behind so many of my smiles, and I’m lucky to know someone as wonderful as you.  
+        May your birthday be filled with laughter, love, and magical moments you’ll never forget. 🍀<br><br>
+
+        With admiration,<br>
         Someone who’s truly thankful for you. ❤️
       </p>
+
       <div class="gallery">
         <img src="kanxoo1.jpg" alt="Kanxoo Photo 1" />
         <img src="kanxoo2.jpg" alt="Kanxoo Photo 2" />
@@ -55,51 +78,74 @@
 
   <!-- Audio Controls -->
   <div class="audio-controls">
-    <button class="audio-btn" onclick="toggleAudio()">🎵 Music</button>
-    <audio id="bg-audio" src="birthday.mp3" loop></audio>
+    <button class="audio-btn" onclick="toggleAudio()">🎵 <span id="audio-label">Play Music</span></button>
+    <audio id="bg-music" loop>
+      <source src="birthday.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
   </div>
 
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    const audio = document.getElementById("bg-audio");
-    let isPlaying = false;
+    const modal = document.getElementById('surprise-modal');
+    const music = document.getElementById("bg-music");
+    const audioLabel = document.getElementById("audio-label");
 
-    function toggleAudio() {
-      if (isPlaying) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      isPlaying = !isPlaying;
+    function firework() {
+      const end = Date.now() + 5000;
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          spread: 100,
+          origin: { y: 0.6 }
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
     }
 
     function showSurprise() {
-      document.getElementById("surpriseModal").style.display = "flex";
+      modal.style.display = 'flex';
+      firework();
     }
 
-    function closeModal() {
-      document.getElementById("surpriseModal").style.display = "none";
+    function closeSurprise() {
+      modal.style.display = 'none';
     }
 
-    // Floating Hearts
-    const heartContainer = document.getElementById("floating-hearts");
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 3 + Math.random() * 2 + "s";
-      heartContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, 300);
+    function toggleAudio() {
+      if (music.paused) {
+        music.play();
+        audioLabel.innerText = "Pause Music";
+      } else {
+        music.pause();
+        audioLabel.innerText = "Play Music";
+      }
+    }
 
-    // Intense confetti
+    // Countdown to July 5, 2026
+    const countdownEl = document.getElementById("countdown");
+    const targetDate = new Date("2026-07-05T00:00:00").getTime();
+
     setInterval(() => {
-      confetti({
-        particleCount: 70,
-        spread: 100,
-        origin: { y: 0.6 },
-      });
-    }, 1500);
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerHTML = "🎂 It's her birthday today!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until your next birthday!`;
+    }, 1000);
+
+    // Auto confetti on load
+    firework();
   </script>
 </body>
 </html>
