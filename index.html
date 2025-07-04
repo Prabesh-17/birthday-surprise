@@ -5,25 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Birthday, Kanxoo!</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    #surprise-modal {
-      display: none;
-    }
-  </style>
+  <style>#surprise-modal { display: none; }</style>
 </head>
 <body>
-  <!-- Confetti Canvas -->
   <canvas id="confetti-canvas"></canvas>
+  <div id="floating-hearts"></div>
 
-  <!-- Birthday Card -->
+  <audio id="bg-audio" src="birthday.mp3" loop></audio>
+  <button class="audio-btn" onclick="toggleAudio()">🎵 Music</button>
+
   <div class="container">
     <div class="birthday-card">
-      <h1 class="shimmer">💖 Happy Birthday, Kanxoo 💖</h1>
+      <h1 class="shimmer typewriter">Happy Birthday, Kanxoo</h1>
       <p class="message">
         You deserve all the magic in the world today. ✨<br />
         Here’s a little gift made with love, just for you.
       </p>
-      <p class="from">— From Someone Who Thinks You're Amazing 😊</p>
+      <p class="from">— Yours 😊</p>
       <button class="surprise-btn" onclick="showSurprise()">🎁 Open Your Surprise</button>
     </div>
   </div>
@@ -49,7 +47,7 @@
 
         <em>
           "तिमी बिना जिन्दगी अधुरो जस्तो लाग्छ,<br>
-          तिमी हुँदा सबै कुरा पूरा लाग्छ।"
+          तिमी हुंदा सबै कुरा पूरा लाग्छ।"
         </em><br><br>
 
         You are the reason behind so many of my smiles, and I’m lucky to know someone as wonderful as you.  
@@ -67,40 +65,20 @@
     </div>
   </div>
 
-  <!-- Audio Controls -->
-  <div class="audio-controls">
-    <button class="audio-btn" onclick="toggleAudio()">🔊  Music</button>
-    <audio id="bg-audio" src="birthday.mp3" loop></audio>
-  </div>
-
-  <!-- Confetti & JS -->
+  <!-- Confetti & Hearts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    const audio = document.getElementById("bg-audio");
-    let isPlaying = false;
-
-    function toggleAudio() {
-      if (isPlaying) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      isPlaying = !isPlaying;
-    }
-
     function firework() {
       const end = Date.now() + 4000;
       (function frame() {
         confetti({
-          particleCount: 3,
-          spread: 120,
+          particleCount: 10,
+          spread: 160,
           origin: { y: 0.6 }
         });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
     }
-
-    firework();
 
     function showSurprise() {
       document.getElementById('surprise-modal').style.display = 'flex';
@@ -110,6 +88,29 @@
     function closeSurprise() {
       document.getElementById('surprise-modal').style.display = 'none';
     }
+
+    const audio = document.getElementById("bg-audio");
+    let isPlaying = false;
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '💗';
+      heart.style.left = Math.random() * 100 + 'vw';
+      document.getElementById('floating-hearts').appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 400);
+
+    firework();
   </script>
 </body>
 </html>
