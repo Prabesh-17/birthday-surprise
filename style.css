@@ -192,3 +192,28 @@ canvas#confetti-canvas {
 .gallery img:hover {
   transform: scale(1.05);
 }
+
+/* 🔊 Audio Button Styling */
+.audio-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.audio-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff69b4;
+  color: white;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+
+.audio-btn:hover {
+  background-color: #ff85c1;
+}
