@@ -1,4 +1,4 @@
-/* Reset & base styles */
+/* Reset & Base */
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +17,6 @@ body {
   position: relative;
 }
 
-/* Confetti canvas */
 canvas#confetti-canvas {
   position: fixed;
   top: 0;
@@ -28,7 +27,6 @@ canvas#confetti-canvas {
   z-index: 1;
 }
 
-/* Layout */
 .container {
   text-align: center;
   z-index: 2;
@@ -41,7 +39,6 @@ canvas#confetti-canvas {
   border-radius: 30px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   max-width: 600px;
-  width: 100%;
   animation: fadeIn 1.2s ease-in;
 }
 
@@ -55,9 +52,23 @@ canvas#confetti-canvas {
   color: transparent;
 }
 
+.typewriter {
+  display: inline-block;
+  border-right: 2px solid #ff69b4;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2.5s steps(30, end) forwards;
+}
+
 @keyframes shimmer {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 .message {
@@ -82,6 +93,8 @@ canvas#confetti-canvas {
   color: white;
   cursor: pointer;
   transition: 0.3s;
+  z-index: 3;
+  position: relative;
 }
 
 .surprise-btn:hover {
@@ -115,7 +128,7 @@ canvas#confetti-canvas {
   100% { bottom: -100px; }
 }
 
-/* Modal overlay */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -129,10 +142,8 @@ canvas#confetti-canvas {
   padding: 3rem 1rem 2rem;
   align-items: flex-start;
   justify-content: center;
-  display: flex;
 }
 
-/* Modal content */
 .modal-content {
   background: linear-gradient(135deg, #fff0f5, #ffe4e1);
   padding: 2rem;
@@ -140,15 +151,15 @@ canvas#confetti-canvas {
   text-align: center;
   width: 100%;
   max-width: 800px;
-  animation: slideInUp 0.8s ease-in-out;
+  animation: fadeIn 0.8s ease-in-out;
   position: relative;
   box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
   margin-top: 1rem;
 }
 
-@keyframes slideInUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .close-btn {
@@ -160,7 +171,6 @@ canvas#confetti-canvas {
   cursor: pointer;
 }
 
-/* Love note */
 .love-note {
   font-size: 1.15rem;
   font-family: 'Georgia', cursive;
@@ -174,7 +184,6 @@ canvas#confetti-canvas {
   box-shadow: inset 0 0 8px rgba(255, 192, 203, 0.3);
 }
 
-/* Gallery */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -196,43 +205,16 @@ canvas#confetti-canvas {
   transform: scale(1.05);
 }
 
-/* Floating Hearts */
-#floating-hearts {
+/* Audio Controls */
+.audio-controls {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
 
-.heart {
-  position: absolute;
-  color: #ff69b4;
-  animation: floatUp 5s linear infinite;
-  font-size: 1.2rem;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
-  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-}
-
-/* Typewriter text fix */
-.typewriter {
-  width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typing 3s steps(30) forwards;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* Music pulse button */
 .audio-btn {
-  animation: pulse 2s infinite;
   padding: 10px 20px;
   font-size: 1rem;
   border: none;
@@ -240,40 +222,51 @@ canvas#confetti-canvas {
   background-color: #ff69b4;
   color: white;
   cursor: pointer;
-  margin: 1rem auto;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
+/* Floating Hearts */
+#floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  top: 100%;
+  font-size: 24px;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0% { top: 100%; opacity: 1; }
+  100% { top: -10%; opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .birthday-card {
     padding: 1.5rem;
   }
-
-  .gallery img {
-    width: 100%;
-    height: auto;
-  }
-
   .modal-content {
-    padding: 1.2rem;
+    padding: 1rem;
   }
-
+  .gallery img {
+    width: 150px;
+    height: 200px;
+  }
   .shimmer {
     font-size: 2rem;
-  }
-
-  .message {
-    font-size: 1.1rem;
-  }
-
-  .surprise-btn {
-    font-size: 1rem;
-    padding: 10px 20px;
   }
 }
