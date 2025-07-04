@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Kanxoo!</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #surprise-modal {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Birthday Card -->
+  <div class="container">
+    <div class="birthday-card">
+      <h1 class="shimmer">💖 Happy Birthday, Kanxoo 💖</h1>
+      <p class="message">
+        You deserve all the magic in the world today. ✨<br />
+        Here’s a little gift made with love, just for you.
+      </p>
+      <p class="from">— From Someone Who Thinks You're Amazing 😊</p>
+      <button class="surprise-btn" onclick="showSurprise()">🎁 Open Your Surprise</button>
+    </div>
+  </div>
+
+  <!-- Balloons -->
+  <div class="balloons">
+    <div class="balloon red"></div>
+    <div class="balloon pink"></div>
+    <div class="balloon purple"></div>
+    <div class="balloon yellow"></div>
+  </div>
+
+  <!-- Surprise Modal -->
+  <div id="surprise-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeSurprise()">&times;</span>
+      <h2>🌸 A Letter for You, Kanxoo 🌸</h2>
+      <p class="love-note">
+        Dear Kanxoo,<br><br>
+        On this special day, I want to remind you how truly incredible you are.  
+        Your smile can light up the darkest day, and your presence is a gift to everyone around you.  
+        I may not say it often, but you inspire me more than you know. 💫<br><br>
+
+        <em>
+          "तिमी बिना जिन्दगी अधुरो जस्तो लाग्छ,<br>
+          तिमी हुँदा सबै कुरा पूरा लाग्छ।"
+        </em><br><br>
+
+        You are the reason behind so many of my smiles, and I’m lucky to know someone as wonderful as you.  
+        May your birthday be filled with laughter, love, and magical moments you’ll never forget. 🍀<br><br>
+
+        With admiration,<br>
+        Someone who’s truly thankful for you. ❤️
+      </p>
+
+      <div class="gallery">
+        <img src="kanxoo1.jpg" alt="Kanxoo Photo 1" />
+        <img src="kanxoo2.jpg" alt="Kanxoo Photo 2" />
+        <img src="kanxoo3.jpg" alt="Kanxoo Photo 3" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Controls -->
+  <div class="audio-controls">
+    <button class="audio-btn" onclick="toggleAudio()">🔊  Music</button>
+    <audio id="bg-audio" src="birthday.mp3" loop></audio>
+  </div>
+
+  <!-- Confetti & JS -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const audio = document.getElementById("bg-audio");
+    let isPlaying = false;
+
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function firework() {
+      const end = Date.now() + 4000;
+      (function frame() {
+        confetti({
+          particleCount: 3,
+          spread: 120,
+          origin: { y: 0.6 }
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    firework();
+
+    function showSurprise() {
+      document.getElementById('surprise-modal').style.display = 'flex';
+      firework();
+    }
+
+    function closeSurprise() {
+      document.getElementById('surprise-modal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
